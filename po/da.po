@@ -1,0 +1,288 @@
+# Danish translation for phosh.
+# Copyright (C) 2020 phosh's COPYRIGHT HOLDER
+# This file is distributed under the same license as the phosh package.
+# Simon Jespersen <mail@simonjespersen.dk>, 2018-2019. #zanata
+# scootergrisen, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: phosh\n"
+"Report-Msgid-Bugs-To: https://source.puri.sm/Librem5/phosh/issues\n"
+"POT-Creation-Date: 2020-08-14 15:29+0000\n"
+"PO-Revision-Date: 2020-09-15 00:00+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Translators: this is the session name, no need to translate it
+#: data/phosh.session.desktop.in.in:4
+msgid "Phosh"
+msgstr "Phosh"
+
+#: data/sm.puri.Phosh.desktop.in.in:4
+msgid "Phone Shell"
+msgstr "Telefonskal"
+
+#: data/sm.puri.Phosh.desktop.in.in:5
+msgid "Window management and application launching for mobile"
+msgstr "Vindueshåndtering og programstarter til mobiltelefon"
+
+#: src/app-grid-button.c:530
+msgid "Application"
+msgstr "Program"
+
+#: src/bt-info.c:89 src/feedbackinfo.c:48
+msgid "On"
+msgstr "Til"
+
+#: src/bt-info.c:91
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#. Translators: quiet and silent are fbd profiles names:
+#. see https://source.puri.sm/Librem5/feedbackd#profiles
+#. for details
+#: src/feedbackinfo.c:41
+msgid "Quiet"
+msgstr "Stille"
+
+#. Translators: quiet and silent are fbd profiles names:
+#. see https://source.puri.sm/Librem5/feedbackd#profiles
+#. for details
+#: src/feedbackinfo.c:46
+msgid "Silent"
+msgstr "Lydløs"
+
+#: src/lockscreen.c:84 src/ui/lockscreen.ui:234
+msgid "Enter Passcode"
+msgstr "Indtast adgangskode"
+
+#: src/lockscreen.c:263
+msgid "Checking…"
+msgstr "Tjekker …"
+
+#. Translators: This is a time format for a date in
+#. long format
+#: src/lockscreen.c:341
+msgid "%A, %B %-e"
+msgstr "%A %d. %B"
+
+#. Translators: Used when the title of a song is unknown
+#: src/media-player.c:263 src/ui/media-player.ui:107
+#| msgid "Unknown title"
+msgid "Unknown Title"
+msgstr "Ukendt titel"
+
+#. Translators: Used when the artist of a song is unknown
+#: src/media-player.c:272 src/ui/media-player.ui:127
+msgid "Unknown Artist"
+msgstr "Ukendt kunstner"
+
+#: src/monitor-manager.c:58
+msgid "Built-in display"
+msgstr "Indbygget skærm"
+
+#. Translators: An unknown monitor type
+#: src/monitor-manager.c:62
+msgid "Unknown"
+msgstr "Ukendt"
+
+#: src/network-auth-prompt.c:184
+#, c-format
+msgid "Authentication type of wifi network “%s” not supported"
+msgstr "Godkendelsestypen for wifi-netværket “%s” understøttes ikke"
+
+#: src/network-auth-prompt.c:189
+#, c-format
+msgid "Enter password for the wifi network “%s”"
+msgstr "Indtast adgangskode til wifi-netværket “%s”"
+
+#: src/notifications/notification.c:382 src/notifications/notification.c:601
+msgid "Notification"
+msgstr "Underretning"
+
+#. Translators: Timestamp seconds suffix
+#: src/notifications/timestamp-label.c:84
+msgctxt "timestamp-suffix-seconds"
+msgid "s"
+msgstr "s"
+
+#. Translators: Timestamp minute suffix
+#: src/notifications/timestamp-label.c:86
+msgctxt "timestamp-suffix-minute"
+msgid "m"
+msgstr "m"
+
+#. Translators: Timestamp minutes suffix
+#: src/notifications/timestamp-label.c:88
+msgctxt "timestamp-suffix-minutes"
+msgid "m"
+msgstr "m"
+
+#. Translators: Timestamp hour suffix
+#: src/notifications/timestamp-label.c:90
+msgctxt "timestamp-suffix-hour"
+msgid "h"
+msgstr "t"
+
+#. Translators: Timestamp hours suffix
+#: src/notifications/timestamp-label.c:92
+msgctxt "timestamp-suffix-hours"
+msgid "h"
+msgstr "t"
+
+#. Translators: Timestamp day suffix
+#: src/notifications/timestamp-label.c:94
+msgctxt "timestamp-suffix-day"
+msgid "d"
+msgstr "d"
+
+#. Translators: Timestamp days suffix
+#: src/notifications/timestamp-label.c:96
+msgctxt "timestamp-suffix-days"
+msgid "d"
+msgstr "d"
+
+#. Translators: Timestamp month suffix
+#: src/notifications/timestamp-label.c:98
+msgctxt "timestamp-suffix-month"
+msgid "mo"
+msgstr "må"
+
+#. Translators: Timestamp months suffix
+#: src/notifications/timestamp-label.c:100
+msgctxt "timestamp-suffix-months"
+msgid "mos"
+msgstr "må"
+
+#. Translators: Timestamp year suffix
+#: src/notifications/timestamp-label.c:102
+msgctxt "timestamp-suffix-year"
+msgid "y"
+msgstr "å"
+
+#. Translators: Timestamp years suffix
+#: src/notifications/timestamp-label.c:104
+msgctxt "timestamp-suffix-years"
+msgid "y"
+msgstr "å"
+
+#. Translators: this is the date in (short) number only format
+#: src/notifications/timestamp-label.c:107
+msgid "%d.%m.%y"
+msgstr "%d.%m.%y"
+
+#. Translators: Timestamp prefix (e.g. Over 5h)
+#: src/notifications/timestamp-label.c:198
+msgid "Over"
+msgstr "Over"
+
+#. Translators: Timestamp prefix (e.g. Almost 5h)
+#: src/notifications/timestamp-label.c:203
+msgid "Almost"
+msgstr "Næsten"
+
+#: src/polkit-auth-agent.c:229
+msgid "Authentication dialog was dismissed by the user"
+msgstr "Godkendelsesdialogen blev lukket af brugeren"
+
+#: src/polkit-auth-prompt.c:276 src/ui/network-auth-prompt.ui:128
+#: src/ui/polkit-auth-prompt.ui:41 src/ui/system-prompt.ui:39
+msgid "Password:"
+msgstr "Adgangskode:"
+
+#: src/polkit-auth-prompt.c:322
+msgid "Sorry, that didn’t work. Please try again."
+msgstr "Beklager, det virkede ikke. Prøv venligst igen."
+
+#: src/polkit-auth-prompt.c:488
+msgid "Authenticate"
+msgstr "Godkend"
+
+#: src/rotateinfo.c:46
+msgid "Portrait"
+msgstr "Portræt"
+
+#: src/rotateinfo.c:49
+msgid "Landscape"
+msgstr "Landskab"
+
+#: src/system-prompt.c:371
+msgid "Passwords do not match."
+msgstr "Adgangskoderne er ikke ens."
+
+#: src/system-prompt.c:378
+msgid "Password cannot be blank"
+msgstr "Adgangskoden må ikke være tom"
+
+#: src/ui/app-grid-button.ui:49
+msgid "App"
+msgstr "Program"
+
+#: src/ui/app-grid-button.ui:76
+msgid "Remove from _Favorites"
+msgstr "Fjern fra _favoritter"
+
+#: src/ui/app-grid-button.ui:81
+msgid "Add to _Favorites"
+msgstr "Tilføj til _favoritter"
+
+#: src/ui/app-grid.ui:21
+msgid "Search apps…"
+msgstr "Søger efter programmer …"
+
+#: src/ui/lockscreen.ui:37
+msgid "Slide up to unlock"
+msgstr "Skub op for at låse op"
+
+#: src/ui/lockscreen.ui:280
+msgid "Emergency"
+msgstr "Nødopkald"
+
+#: src/ui/lockscreen.ui:296
+msgid "Unlock"
+msgstr "Lås op"
+
+#: src/ui/network-auth-prompt.ui:90
+msgid "_Cancel"
+msgstr "_Annuller"
+
+#: src/ui/network-auth-prompt.ui:106
+msgid "C_onnect"
+msgstr "_Opret forbindelse"
+
+#: src/ui/polkit-auth-prompt.ui:105
+msgid "User:"
+msgstr "Bruger:"
+
+#: src/ui/system-prompt.ui:69
+msgid "Confirm:"
+msgstr "Bekræft:"
+
+#: src/ui/top-panel.ui:15
+msgid "Lock Screen"
+msgstr "Lås skærm"
+
+#: src/ui/top-panel.ui:22
+msgid "Logout"
+msgstr "Log ud"
+
+#: src/ui/top-panel.ui:29
+msgid "Restart"
+msgstr "Genstart"
+
+#: src/ui/top-panel.ui:36
+msgid "Power Off"
+msgstr "Sluk"
+
+#: src/wifiinfo.c:88
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#. Translators: Refers to the cellular wireless network
+#: src/wwaninfo.c:168
+msgid "Cellular"
+msgstr "Mobil"

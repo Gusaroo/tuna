@@ -1,0 +1,63 @@
+#!/bin/sh
+
+COMPOSITOR="/usr/bin/phoc"
+PHOC_INI="@pkgdatadir@/phoc.ini"
+
+gnome_session_args()
+{
+  ARGS="--disable-acceleration-check --session=phosh"
+
+  # Use builtin session handling until we can rely
+  # on a newer gnome-session everywhere
+  if gnome-session --help | grep -qs -e--builtin; then
+      ARGS="--builtin ${ARGS}"
+  fi
+
+  echo "${ARGS}"
+}
+
+help()
+{
+  cat <<EOF
+phosh - Session start script for Phosh
+
+This is usually invoked by a display manager but you can
+also run it from a tty.
+
+Usage: phosh
+EOF
+  exit 0
+}
+
+
+version()
+{
+   echo "@version@"
+   exit 0
+}
+
+case "$1" in
+  -h|-\?|--help)
+    help
+    ;;
+  --version)
+    version
+    ;;
+esac
+
+if [ -x @bindir@/phoc ]; then
+  COMPOSITOR=@bindir@/phoc
+fi
+
+if [ -f /etc/phosh/phoc.ini ]; then
+  PHOC_INI=/etc/phosh/phoc.ini
+elif  [ -f /etc/phosh/rootston.ini ]; then
+  # honor old configs
+  PHOC_INI=/etc/phosh/rootston.ini
+fi
+
+# Run gnome-session through a login shell so it picks
+# variables from /etc/profile.d (XDG_*)
+[ -n "$WLR_BACKENDS" ] || WLR_BACKENDS=drm,libinput
+export WLR_BACKENDS
+exec "${COMPOSITOR}" -C "${PHOC_INI}" -E "bash -lc 'gnome-session $(gnome_session_args)'"

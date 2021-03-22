@@ -1,0 +1,308 @@
+# Ludwig Johnson <public@ludwigjohnson.se>, 2018. #zanata
+# Nami <namii@tutamail.com>, 2019. #zanata
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: phosh\n"
+"Report-Msgid-Bugs-To: https://source.puri.sm/Librem5/phosh/issues\n"
+"POT-Creation-Date: 2020-12-24 15:33+0000\n"
+"PO-Revision-Date: 2020-12-25 00:01+0100\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Translators: this is the session name, no need to translate it
+#: data/phosh.session.desktop.in.in:4
+msgid "Phosh"
+msgstr "Phosh"
+
+#: data/sm.puri.Phosh.desktop.in.in:4
+msgid "Phone Shell"
+msgstr "Phone Shell"
+
+#: data/sm.puri.Phosh.desktop.in.in:5
+msgid "Window management and application launching for mobile"
+msgstr "Fönsterhantering och programstartare för mobil"
+
+#: src/app-grid-button.c:536
+msgid "Application"
+msgstr "Program"
+
+#: src/bt-info.c:92 src/feedbackinfo.c:51
+msgid "On"
+msgstr "På"
+
+#: src/bt-info.c:94
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+#: src/docked-info.c:81
+msgid "Docked"
+msgstr "Dockad"
+
+#: src/docked-info.c:195
+msgid "Undocked"
+msgstr "Ej dockad"
+
+# Inget ljud, möjligen vibration
+#. Translators: quiet and silent are fbd profiles names:
+#. see https://source.puri.sm/Librem5/feedbackd#profiles
+#. for details
+#: src/feedbackinfo.c:44
+msgid "Quiet"
+msgstr "Ljudlös"
+
+#. Translators: quiet and silent are fbd profiles names:
+#. see https://source.puri.sm/Librem5/feedbackd#profiles
+#. for details
+#: src/feedbackinfo.c:49
+msgid "Silent"
+msgstr "Tyst"
+
+#: src/lockscreen.c:86 src/ui/lockscreen.ui:234
+msgid "Enter Passcode"
+msgstr "Ange lösenord"
+
+#: src/lockscreen.c:265
+msgid "Checking…"
+msgstr "Kontrollerar…"
+
+#. Translators: This is a time format for a date in
+#. long format
+#: src/lockscreen.c:343
+msgid "%A, %B %-e"
+msgstr "%A, %-e %B"
+
+#. Translators: Used when the title of a song is unknown
+#: src/media-player.c:277 src/ui/media-player.ui:107
+msgid "Unknown Title"
+msgstr "Okänd titel"
+
+#. Translators: Used when the artist of a song is unknown
+#: src/media-player.c:286 src/ui/media-player.ui:127
+msgid "Unknown Artist"
+msgstr "Okänd artist"
+
+#: src/monitor-manager.c:71
+msgid "Built-in display"
+msgstr "Inbyggd skärm"
+
+#. Translators: An unknown monitor type
+#: src/monitor-manager.c:75
+msgid "Unknown"
+msgstr "Okänd"
+
+#: src/network-auth-prompt.c:187
+#, c-format
+msgid "Authentication type of wifi network “%s” not supported"
+msgstr "Autentiseringstyp för wifi-nätverket ”%s” stöds ej"
+
+#: src/network-auth-prompt.c:192
+#, c-format
+msgid "Enter password for the wifi network “%s”"
+msgstr "Ange lösenord för wifi-nätverket ”%s”"
+
+#: src/notifications/mount-notification.c:137
+msgid "Open"
+msgstr "Öppna"
+
+#: src/notifications/notification.c:381 src/notifications/notification.c:637
+msgid "Notification"
+msgstr "Avisering"
+
+#. Translators: Timestamp seconds suffix
+#: src/notifications/timestamp-label.c:83
+msgctxt "timestamp-suffix-seconds"
+msgid "s"
+msgstr "s"
+
+#. Translators: Timestamp minute suffix
+#: src/notifications/timestamp-label.c:85
+msgctxt "timestamp-suffix-minute"
+msgid "m"
+msgstr "m"
+
+#. Translators: Timestamp minutes suffix
+#: src/notifications/timestamp-label.c:87
+msgctxt "timestamp-suffix-minutes"
+msgid "m"
+msgstr "m"
+
+#. Translators: Timestamp hour suffix
+#: src/notifications/timestamp-label.c:89
+msgctxt "timestamp-suffix-hour"
+msgid "h"
+msgstr "h"
+
+#. Translators: Timestamp hours suffix
+#: src/notifications/timestamp-label.c:91
+msgctxt "timestamp-suffix-hours"
+msgid "h"
+msgstr "h"
+
+#. Translators: Timestamp day suffix
+#: src/notifications/timestamp-label.c:93
+msgctxt "timestamp-suffix-day"
+msgid "d"
+msgstr "d"
+
+#. Translators: Timestamp days suffix
+#: src/notifications/timestamp-label.c:95
+msgctxt "timestamp-suffix-days"
+msgid "d"
+msgstr "d"
+
+#. Translators: Timestamp month suffix
+#: src/notifications/timestamp-label.c:97
+msgctxt "timestamp-suffix-month"
+msgid "mo"
+msgstr "mån"
+
+#. Translators: Timestamp months suffix
+#: src/notifications/timestamp-label.c:99
+msgctxt "timestamp-suffix-months"
+msgid "mos"
+msgstr "mån"
+
+#. Translators: Timestamp year suffix
+#: src/notifications/timestamp-label.c:101
+msgctxt "timestamp-suffix-year"
+msgid "y"
+msgstr "å"
+
+#. Translators: Timestamp years suffix
+#: src/notifications/timestamp-label.c:103
+msgctxt "timestamp-suffix-years"
+msgid "y"
+msgstr "å"
+
+#. Translators: this is the date in (short) number only format
+#: src/notifications/timestamp-label.c:106
+msgid "%d.%m.%y"
+msgstr "%y.%m.%d"
+
+#. Translators: Timestamp prefix (e.g. Over 5h)
+#: src/notifications/timestamp-label.c:197
+msgid "Over"
+msgstr "Över"
+
+#. Translators: Timestamp prefix (e.g. Almost 5h)
+#: src/notifications/timestamp-label.c:202
+msgid "Almost"
+msgstr "Nästan"
+
+#: src/notifications/timestamp-label.c:210
+msgid "now"
+msgstr "nu"
+
+#: src/polkit-auth-agent.c:231
+msgid "Authentication dialog was dismissed by the user"
+msgstr "Autentiseringsdialogen avvisades av användaren"
+
+#: src/polkit-auth-prompt.c:278 src/ui/network-auth-prompt.ui:130
+#: src/ui/polkit-auth-prompt.ui:41 src/ui/system-prompt.ui:39
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: src/polkit-auth-prompt.c:324
+msgid "Sorry, that didn’t work. Please try again."
+msgstr "Tyvärr, det fungerade inte. Var god försök igen."
+
+#: src/polkit-auth-prompt.c:468
+msgid "Authenticate"
+msgstr "Godkänn"
+
+#: src/rotateinfo.c:65
+msgid "Portrait"
+msgstr "Stående"
+
+#: src/rotateinfo.c:68
+msgid "Landscape"
+msgstr "Liggande"
+
+#: src/system-prompt.c:373
+msgid "Passwords do not match."
+msgstr "Lösenorden matchar inte."
+
+#: src/system-prompt.c:380
+msgid "Password cannot be blank"
+msgstr "Lösenordet får inte vara tomt"
+
+#: src/torch-info.c:80
+msgid "Torch"
+msgstr "Ficklampa"
+
+#: src/ui/app-grid-button.ui:49
+msgid "App"
+msgstr "App"
+
+#: src/ui/app-grid-button.ui:76
+msgid "Remove from _Favorites"
+msgstr "Ta bort från _favoriter"
+
+#: src/ui/app-grid-button.ui:81
+msgid "Add to _Favorites"
+msgstr "Lägg till i _favoriter"
+
+#: src/ui/app-grid.ui:21
+msgid "Search apps…"
+msgstr "Sök appar…"
+
+#: src/ui/lockscreen.ui:37
+msgid "Slide up to unlock"
+msgstr "Svep uppåt för att låsa upp"
+
+#: src/ui/lockscreen.ui:280
+msgid "Emergency"
+msgstr "Nödläge"
+
+#: src/ui/lockscreen.ui:296
+msgid "Unlock"
+msgstr "Lås upp"
+
+#: src/ui/network-auth-prompt.ui:89
+msgid "_Cancel"
+msgstr "A_vbryt"
+
+#: src/ui/network-auth-prompt.ui:105
+msgid "C_onnect"
+msgstr "A_nslut"
+
+#: src/ui/polkit-auth-prompt.ui:105
+msgid "User:"
+msgstr "Användare:"
+
+#: src/ui/system-prompt.ui:69
+msgid "Confirm:"
+msgstr "Bekräfta:"
+
+#: src/ui/top-panel.ui:15
+msgid "Lock Screen"
+msgstr "Lås skärm"
+
+#: src/ui/top-panel.ui:22
+msgid "Logout"
+msgstr "Logga ut"
+
+#: src/ui/top-panel.ui:29
+msgid "Restart"
+msgstr "Starta om"
+
+#: src/ui/top-panel.ui:36
+msgid "Power Off"
+msgstr "Stäng av"
+
+#: src/wifiinfo.c:90
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#. Translators: Refers to the cellular wireless network
+#: src/wwaninfo.c:170
+msgid "Cellular"
+msgstr "Mobilt nätverk"
