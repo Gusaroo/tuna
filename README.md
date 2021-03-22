@@ -3,7 +3,7 @@
 A mobile UI for xfce
 
 Tuna is a community project that brings a mobile interface to xfce.
-It is based on Phosh but it lighter, more customizable, and not its own DE it will require xfce to be installed for it to work.
+It is based on Phosh but it is lighter, more customizable, and not its own DE it will require xfce to be installed for it to work.
 If you want to contribute code to the project feel free I'll accept most or all of the changes submitted
 
 Working towards version 1.0
