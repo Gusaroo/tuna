@@ -15,6 +15,6 @@ Here are some concepts for what I hope Tuna will look like at version 1.0
 ![tuna](screenshots/TunaConcept-noti.png)
 ![tuna](screenshots/TunaConcept-open.png)
 
-Top contributors
+# Top contributors
 
 -Gusaroo
