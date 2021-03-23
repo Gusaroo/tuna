@@ -7,9 +7,13 @@ It is based on Phosh but it is lighter, more customizable, and not its own DE it
 If you want to contribute code to the project feel free I'll accept most or all of the changes submitted
 
 How to submit code
+
 1.Fork tuna
+
 2.create pull request
+
 3.commit your changes
+
 4.wait tell accepted
 
 Working towards version 1.0
