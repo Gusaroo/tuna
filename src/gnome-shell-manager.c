@@ -12,7 +12,10 @@
 #include "../config.h"
 
 #include "gnome-shell-manager.h"
+#include "osd-window.h"
 #include "shell.h"
+#include "util.h"
+#include "lockscreen-manager.h"
 
 /**
  * SECTION:gnome-shell-manager
@@ -21,10 +24,17 @@
  *
  */
 
-#define NOTIFY_DBUS_NAME "org.gnome.Shell"
-
+#define GNOME_SHELL_DBUS_NAME "org.gnome.Shell"
+#define OSD_HIDE_TIMEOUT 1 /* seconds */
 
 static void phosh_gnome_shell_manager_shell_iface_init (PhoshGnomeShellDBusShellIface *iface);
+
+enum {
+  PROP_0,
+  PROP_ACTION_MODE,
+  PROP_LAST_PROP
+};
+static GParamSpec *props[PROP_LAST_PROP];
 
 typedef struct _PhoshGnomeShellManager {
   PhoshGnomeShellDBusShellSkeleton parent;
@@ -32,6 +42,11 @@ typedef struct _PhoshGnomeShellManager {
   GHashTable                      *info_by_action;
   guint                            last_action_id;
   int                              dbus_name_id;
+  ShellActionMode                  action_mode;
+
+  PhoshOsdWindow                  *osd;
+  gint                             osd_timeoutid;
+  gboolean                         osd_continue;
 } PhoshGnomeShellManager;
 
 G_DEFINE_TYPE_WITH_CODE (PhoshGnomeShellManager,
@@ -47,6 +62,8 @@ typedef struct _AcceleratorInfo {
   guint                            action_id;
   gchar                           *accelerator;
   gchar                           *sender;
+  guint                            mode_flags;
+  guint                            grab_flags;
 } AcceleratorInfo;
 
 static void
@@ -107,6 +124,80 @@ handle_hide_monitor_labels (PhoshGnomeShellDBusShell *skeleton,
 
 
 static gboolean
+on_osd_timeout (PhoshGnomeShellManager *self)
+{
+  gboolean ret;
+  ret = self->osd_continue ? G_SOURCE_CONTINUE : G_SOURCE_REMOVE;
+  if (!self->osd_continue) {
+      g_debug ("Closing osd");
+      self->osd_timeoutid = 0;
+      if (self->osd)
+        gtk_widget_destroy (GTK_WIDGET (self->osd));
+  }
+  self->osd_continue = FALSE;
+  return ret;
+}
+
+static void
+on_osd_destroyed (PhoshGnomeShellManager *self)
+{
+  self->osd = NULL;
+  g_clear_handle_id (&self->osd_timeoutid, g_source_remove);
+}
+
+
+static gboolean
+handle_show_osd (PhoshGnomeShellDBusShell *skeleton,
+                 GDBusMethodInvocation    *invocation,
+                 GVariant                 *arg_params)
+{
+  PhoshGnomeShellManager *self = PHOSH_GNOME_SHELL_MANAGER (skeleton);
+  GVariantDict dict;
+  g_autofree char *connector = NULL, *icon = NULL, *label = NULL;
+  gdouble level = 0.0, maxlevel = 1.0;
+
+  g_return_val_if_fail (PHOSH_IS_GNOME_SHELL_MANAGER (self), FALSE);
+
+  g_variant_dict_init (&dict, arg_params);
+  g_variant_dict_lookup (&dict, "connector", "s", &connector);
+  g_variant_dict_lookup (&dict, "icon", "s", &icon);
+  g_variant_dict_lookup (&dict, "label", "s", &label);
+  g_variant_dict_lookup (&dict, "level", "d", &level);
+  g_variant_dict_lookup (&dict, "max_level", "d", &maxlevel);
+
+  g_debug ("DBus show osd: connector: %s icon: %s, label: %s, level %f/%f",
+           connector, icon, label, level, maxlevel);
+
+  if (self->osd) {
+    self->osd_continue = TRUE;
+    g_object_set (self->osd,
+                  "connector", connector,
+                  "label", label,
+                  "icon-name", icon,
+                  "level", level,
+                  "max-level", maxlevel,
+                  NULL);
+  } else {
+    self->osd = PHOSH_OSD_WINDOW (phosh_osd_window_new (connector, label, icon, level, maxlevel));
+    g_signal_connect_swapped (self->osd, "destroy", G_CALLBACK (on_osd_destroyed), self);
+    gtk_widget_show (GTK_WIDGET (self->osd));
+  }
+
+  if (!self->osd_timeoutid) {
+    self->osd_timeoutid = g_timeout_add_seconds (OSD_HIDE_TIMEOUT,
+                                                 (GSourceFunc)on_osd_timeout,
+                                                 self);
+    g_source_set_name_by_id (self->osd_timeoutid, "[phosh] osd-timeout");
+  }
+
+  phosh_gnome_shell_dbus_shell_complete_show_osd (
+    skeleton, invocation);
+
+  return TRUE;
+}
+
+
+static gboolean
 grab_single_accelerator (PhoshGnomeShellManager *self,
                          const gchar            *accelerator,
                          guint                   mode_flags,
@@ -129,6 +220,8 @@ grab_single_accelerator (PhoshGnomeShellManager *self,
   info->accelerator = g_strdup (accelerator);
   info->action_id = ++(self->last_action_id);
   info->sender = g_strdup (sender);
+  info->mode_flags = mode_flags;
+  info->grab_flags = grab_flags;
 
   g_debug ("Using action id %d for accelerator %s", info->action_id, info->accelerator);
 
@@ -192,7 +285,7 @@ handle_grab_accelerators (PhoshGnomeShellDBusShell *skeleton,
 {
   PhoshGnomeShellManager *self = PHOSH_GNOME_SHELL_MANAGER (skeleton);
   g_autoptr (GVariantBuilder) builder = NULL;
-  GVariantIter *arg_iter;
+  g_autoptr (GVariantIter) arg_iter = NULL;
   gchar *accelerator_name;
   guint accelerator_mode_flags;
   guint accelerator_grab_flags;
@@ -349,10 +442,35 @@ phosh_gnome_shell_manager_shell_iface_init (PhoshGnomeShellDBusShellIface *iface
 {
   iface->handle_show_monitor_labels = handle_show_monitor_labels;
   iface->handle_hide_monitor_labels = handle_hide_monitor_labels;
+  iface->handle_show_osd = handle_show_osd;
   iface->handle_grab_accelerator = handle_grab_accelerator;
   iface->handle_grab_accelerators = handle_grab_accelerators;
   iface->handle_ungrab_accelerator = handle_ungrab_accelerator;
   iface->handle_ungrab_accelerators = handle_ungrab_accelerators;
+}
+
+static ShellActionMode
+get_action_mode (PhoshShellStateFlags state)
+{
+  PhoshShell *shell = phosh_shell_get_default ();
+
+  if (state & PHOSH_STATE_LOCKED) {
+    PhoshLockscreenManager *lockscreen_manager = phosh_shell_get_lockscreen_manager (shell);
+    PhoshLockscreenPage page = phosh_lockscreen_manager_get_page (lockscreen_manager);
+
+    if (page == PHOSH_LOCKSCREEN_PAGE_UNLOCK)
+      return SHELL_ACTION_MODE_UNLOCK_SCREEN;
+    else
+      return SHELL_ACTION_MODE_LOCK_SCREEN;
+  }
+
+  if (state & PHOSH_STATE_MODAL_SYSTEM_PROMPT)
+    return SHELL_ACTION_MODE_SYSTEM_MODAL;
+
+  if (state & PHOSH_STATE_OVERVIEW)
+    return SHELL_ACTION_MODE_OVERVIEW;
+
+  return SHELL_ACTION_MODE_NORMAL;
 }
 
 static void
@@ -362,12 +480,21 @@ accelerator_activated_action (GSimpleAction *action,
 {
   AcceleratorInfo *info = (AcceleratorInfo *) data;
   PhoshGnomeShellManager *self = phosh_gnome_shell_manager_get_default ();
-  g_autoptr (GVariantBuilder) builder;
+  g_autoptr (GVariantBuilder) builder = NULL;
   GVariant *parameters;
   uint32_t action_id;
 
   action_id = info->action_id;
   g_debug ("accelerator action activated for id %u", action_id);
+
+  if ((info->mode_flags & self->action_mode) == 0) {
+    g_autofree gchar *str_shell_mode = g_flags_to_string (SHELL_TYPE_ACTION_MODE, self->action_mode);
+    g_autofree gchar *str_grabbed_mode = g_flags_to_string (SHELL_TYPE_ACTION_MODE, info->mode_flags);
+    g_debug ("Accelerator registered for mode %s, but shell is currently in %s",
+             str_grabbed_mode,
+             str_shell_mode);
+    return;
+  }
 
   builder = g_variant_builder_new (G_VARIANT_TYPE ("a{sv}"));
   /*
@@ -413,13 +540,67 @@ on_bus_acquired (GDBusConnection *connection,
                  gpointer         user_data)
 {
   PhoshGnomeShellManager *self = user_data;
+  PhoshSessionManager *sm;
 
   g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (self),
                                     connection,
                                     "/org/gnome/Shell",
                                     NULL);
+
+  sm = phosh_shell_get_session_manager (phosh_shell_get_default ());
+  phosh_session_manager_export_end_session (sm, connection);
 }
 
+
+static gboolean
+transform_state_to_action_mode (GBinding     *binding,
+                                const GValue *from_value,
+                                GValue       *to_value,
+                                gpointer      unused)
+{
+  PhoshShellStateFlags shell_state = g_value_get_flags (from_value);
+  ShellActionMode action_mode = get_action_mode (shell_state);
+
+  g_value_set_flags (to_value, action_mode);
+  return TRUE;
+}
+
+static void
+phosh_gnome_shell_manager_set_property (GObject      *object,
+                                        guint         property_id,
+                                        const GValue *value,
+                                        GParamSpec   *pspec)
+{
+  PhoshGnomeShellManager *self = PHOSH_GNOME_SHELL_MANAGER (object);
+
+  switch (property_id) {
+  case PROP_ACTION_MODE:
+    self->action_mode = g_value_get_flags (value);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
+
+
+static void
+phosh_gnome_shell_manager_get_property (GObject    *object,
+                                        guint       property_id,
+                                        GValue     *value,
+                                        GParamSpec *pspec)
+{
+  PhoshGnomeShellManager *self = PHOSH_GNOME_SHELL_MANAGER (object);
+
+  switch (property_id) {
+  case PROP_ACTION_MODE:
+    g_value_set_flags (value, self->action_mode);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
 
 static void
 phosh_gnome_shell_manager_dispose (GObject *object)
@@ -446,10 +627,18 @@ static void
 phosh_gnome_shell_manager_constructed (GObject *object)
 {
   PhoshGnomeShellManager *self = PHOSH_GNOME_SHELL_MANAGER (object);
+  PhoshShell *shell = phosh_shell_get_default ();
+
+  g_object_bind_property_full (shell, "shell-state",
+                               object, "shell-action-mode",
+                               G_BINDING_SYNC_CREATE,
+                               (GBindingTransformFunc) transform_state_to_action_mode,
+                               NULL, NULL, NULL);
+
 
   G_OBJECT_CLASS (phosh_gnome_shell_manager_parent_class)->constructed (object);
   self->dbus_name_id = g_bus_own_name (G_BUS_TYPE_SESSION,
-                                       NOTIFY_DBUS_NAME,
+                                       GNOME_SHELL_DBUS_NAME,
                                        G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT |
                                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
                                        on_bus_acquired,
@@ -465,8 +654,21 @@ phosh_gnome_shell_manager_class_init (PhoshGnomeShellManagerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->get_property = phosh_gnome_shell_manager_get_property;
+  object_class->set_property = phosh_gnome_shell_manager_set_property;
   object_class->constructed = phosh_gnome_shell_manager_constructed;
   object_class->dispose = phosh_gnome_shell_manager_dispose;
+
+  props[PROP_ACTION_MODE] =
+    g_param_spec_flags ("shell-action-mode",
+                        "Shell Action Mode",
+                        "The active action mode (used for keygrabbing)",
+                        SHELL_TYPE_ACTION_MODE,
+                        SHELL_ACTION_MODE_NONE,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
+
 }
 
 

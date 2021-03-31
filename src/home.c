@@ -253,19 +253,20 @@ toggle_application_view_action (GSimpleAction *action, GVariant *param, gpointer
 static void
 add_keybindings (PhoshHome *self)
 {
-  g_auto (GStrv) bindings = NULL;
+  g_auto (GStrv) overview_bindings = NULL;
+  g_auto (GStrv) app_view_bindings = NULL;
   g_autoptr (GSettings) settings = g_settings_new (KEYBINDINGS_SCHEMA_ID);
 
-  bindings = g_settings_get_strv (settings, KEYBINDING_KEY_TOGGLE_OVERVIEW);
-  for (int i = 0; i < g_strv_length (bindings); i++) {
-    GActionEntry entry = { bindings[i],
+  overview_bindings = g_settings_get_strv (settings, KEYBINDING_KEY_TOGGLE_OVERVIEW);
+  for (int i = 0; i < g_strv_length (overview_bindings); i++) {
+    GActionEntry entry = { overview_bindings[i],
                            toggle_overview_action, };
     g_array_append_val (self->actions, entry);
   }
 
-  bindings = g_settings_get_strv (settings, KEYBINDING_KEY_TOGGLE_APPLICATION_VIEW);
-  for (int i = 0; i < g_strv_length (bindings); i++) {
-    GActionEntry entry = { bindings[i],
+  app_view_bindings = g_settings_get_strv (settings, KEYBINDING_KEY_TOGGLE_APPLICATION_VIEW);
+  for (int i = 0; i < g_strv_length (app_view_bindings); i++) {
+    GActionEntry entry = { app_view_bindings[i],
                            toggle_application_view_action, };
     g_array_append_val (self->actions, entry);
   }
@@ -462,7 +463,20 @@ animate_cb(GtkWidget *widget,
 
   phosh_home_resize (self);
 
-  return finished ? G_SOURCE_REMOVE : G_SOURCE_CONTINUE;
+  if (finished) {
+    if (self->state == PHOSH_HOME_STATE_FOLDED)
+      gtk_widget_hide (GTK_WIDGET (self->overview));
+    return G_SOURCE_REMOVE;
+  }
+
+  return G_SOURCE_CONTINUE;
+}
+
+
+static double
+reverse_ease_out_cubic (double t)
+{
+  return cbrt(t - 1) + 1;
 }
 
 
@@ -493,12 +507,13 @@ phosh_home_set_state (PhoshHome *self, PhoshHomeState state)
   g_debug ("Setting state to %s", state_name);
 
   self->animation.last_frame = -1;
-  self->animation.progress = enable_animations ? (1.0 - self->animation.progress) : 1.0;
+  self->animation.progress = enable_animations ? reverse_ease_out_cubic (1.0 - hdy_ease_out_cubic (self->animation.progress)) : 1.0;
   gtk_widget_add_tick_callback (GTK_WIDGET (self), animate_cb, NULL, NULL);
 
   if (state == PHOSH_HOME_STATE_UNFOLDED) {
     kbd_interactivity = TRUE;
     phosh_overview_reset (PHOSH_OVERVIEW (self->overview));
+    gtk_widget_show (GTK_WIDGET (self->overview));
   } else {
     kbd_interactivity = FALSE;
   }

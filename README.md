@@ -1,3 +1,5 @@
+![tuna](screenshots/TunaLOGOtitle.png)
+
 # Tuna
 
 A mobile UI for xfce

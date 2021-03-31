@@ -15,12 +15,15 @@ phosh_resources = gnome.compile_resources(
 
 phosh_enum_headers = [
   'app-grid-button.h',
+  'gnome-shell-manager.h',
   'home.h',
+  'lockscreen.h',
   'mode-manager.h',
   'monitor/monitor.h',
   'notifications/notification.h',
   'notifications/notify-manager.h',
   'phosh-wayland.h',
+  'shell.h',
 ] + schema_enum_headers
 
 phosh_enums = gnome.mkenums('phosh-enums',
@@ -56,6 +59,12 @@ libphosh_tool_sources = [
   'background.h',
   'connectivity-info.c',
   'connectivity-info.h',
+  'end-session-dialog.c',
+  'end-session-dialog.h',
+  'hks-info.c',
+  'hks-info.h',
+  'hks-manager.c',
+  'hks-manager.h',
   'docked-info.c',
   'docked-info.h',
   'docked-manager.c',
@@ -80,10 +89,14 @@ libphosh_tool_sources = [
   'mount-manager.h',
   'overview.c',
   'overview.h',
+  'osd-window.c',
+  'osd-window.h',
   'status-icon.c',
   'status-icon.h',
   'system-modal.c',
   'system-modal.h',
+  'system-modal-dialog.c',
+  'system-modal-dialog.h',
   'thumbnail.c',
   'thumbnail.h',
   'quick-setting.c',
@@ -101,6 +114,8 @@ libphosh_tool_sources = [
 ]
 
 libphosh_sources = [
+  'app-auth-prompt.c',
+  'app-auth-prompt.h',
   'arrow.c',
   'arrow.h',
   'auth.c',
@@ -125,6 +140,10 @@ libphosh_sources = [
   'keyboard-events.h',
   'idle-manager.c',
   'idle-manager.h',
+  'location-info.c',
+  'location-info.h',
+  'location-manager.c',
+  'location-manager.h',
   'lockscreen-manager.c',
   'lockscreen-manager.h',
   'lockscreen.c',
@@ -229,4 +248,3 @@ phosh = executable('phosh', ['main.c', libphosh_sources],
   dependencies: phosh_tool_dep,
   install: true,
   install_dir: libexecdir)
-
