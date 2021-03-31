@@ -1,37 +1,33 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/Gusaroo/tuna/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+![tuna](screenshots/TunaLOGOtitle.png)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Tuna
 
-### Markdown
+A mobile UI for xfce
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Tuna is a community project that brings a mobile interface to xfce.
+It is based on Phosh but it is lighter, more customizable, and not its own DE it will require xfce to be installed for it to work.
+If you want to contribute code to the project feel free I'll accept most or all of the changes submitted
 
-```markdown
-Syntax highlighted code block
+How to submit code
 
-# Header 1
-## Header 2
-### Header 3
+1.Fork tuna
 
-- Bulleted
-- List
+2.create pull request
 
-1. Numbered
-2. List
+3.commit your changes
 
-**Bold** and _Italic_ and `Code` text
+4.wait tell accepted
 
-[Link](url) and ![Image](src)
-```
+Working towards version 1.0
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Here are some concepts for what I hope Tuna will look like at version 1.0
 
-### Jekyll Themes
+![tuna](screenshots/TunaConcept-home.png)
+![tuna](screenshots/TunaConcept-quick.png)
+![tuna](screenshots/TunaConcept-noti.png)
+![tuna](screenshots/TunaConcept-open.png)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Gusaroo/tuna/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# Top contributors
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+-Gusaroo
