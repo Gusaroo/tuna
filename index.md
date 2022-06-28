@@ -15,15 +15,14 @@ Big changes planned for 0.3
 
 -Control center (Similar to what is found on iOS)
 
--A setting app
+-A settings app
 
 # Recommended apps
 
 Here's a few apps we recommend you use Tuna with
 
--Onboard (An onscreen keyboard)
-
+-Onboard (Onscreen keyboard)
+-Waydroid (Run android apps on Linux)
 -Firefox (You know what it is)
--
--
--
+-Geary (Email client)
+-Gnome Photos (Photo manager)
