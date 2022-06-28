@@ -1,5 +1,5 @@
 
-![tuna](img/TunaLOGOtitle.png)
+![Tuna](img/TunaLOGOtitle.png)
 
 # Tuna
 
@@ -17,6 +17,8 @@ Big changes planned for 0.3
 
 -A settings app
 
+![tuna](img/TS2.png)
+
 # Recommended apps
 
 Here's a few apps we recommend you use Tuna with
@@ -30,3 +32,5 @@ Here's a few apps we recommend you use Tuna with
 -Geary (Email client)
 
 -Gnome Photos (Photo manager)
+
+![tuna](img/TS1.png)
