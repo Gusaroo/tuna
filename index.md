@@ -22,7 +22,11 @@ Big changes planned for 0.3
 Here's a few apps we recommend you use Tuna with
 
 -Onboard (Onscreen keyboard)
+
 -Waydroid (Run android apps on Linux)
+
 -Firefox (You know what it is)
+
 -Geary (Email client)
+
 -Gnome Photos (Photo manager)
