@@ -1,5 +1,5 @@
 
-![Tuna](img/TunaLOGOtitle.png)
+![tuna](img/TunaLOGOtitle.png)
 
 # Tuna
 
