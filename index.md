@@ -3,7 +3,7 @@
 
 # Tuna
 
-Tuna is a community project that brings a mobile interface to xfce.
+Tuna is a community project that brings a mobile interface to Xfce.
 
 ![tuna](img/TS3.png)
 
