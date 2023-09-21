@@ -17,18 +17,18 @@ We're working towards 1.0 and currently on 0.2. The next update has no set relea
 
 Here's a few apps we recommend you use Tuna with
 
--Onboard (Onscreen keyboard)
+* Onboard (Onscreen keyboard)
 
--Waydroid (Run android apps on Linux)
+* Waydroid (Run android apps on Linux)
 
--Firefox/Firefox ESR (You know what it is)
+* Firefox/Firefox ESR (You know what it is)
 
 And a few themes we recommend
 
--Arc
+* Arc
 
--Adw-gtk3
+* Adw-gtk3
 
--Nordic
+* Nordic
 
 ![tuna](img/TS1.png)
