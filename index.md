@@ -9,7 +9,7 @@ Tuna is a community project that brings a mobile interface to Xfce.
 
 # Releases
 
-We're working towards 1.0 and currently on 0.2. 0.3 is set to release by September.
+We're working towards 1.0 and currently on 0.2. 0.3 has no set release date.
 
 Big changes planned for 0.3
 
@@ -31,18 +31,14 @@ Here's a few apps we recommend you use Tuna with
 
 -Geary (Email client)
 
--Gnome Photos (Photo manager)
-
 And a few themes we recommend
-
--Materia
-
--Zorin desktop themes
-
--Colloid
 
 -Arc
 
--Juno
+-Adw-gtk3
+
+-Zorin OS themes
+
+-Nordic
 
 ![tuna](img/TS1.png)
